@@ -1,7 +1,7 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-import five from 'johnny-five';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const five = require('johnny-five');
 
 const app = express();
 
@@ -21,12 +21,7 @@ board.on('ready', () => leds.push(new five.Led(13)));
 app.get('/', (req, res) => res.status(200).end('API 1.0 working!'));
 
 app.post('/led', (req, res) => {
-
-    console.log(req.body.index);
-    console.log(req.body.state);
-
     req.body.state === 'on' ? leds[req.body.index].on() : leds[req.body.index].off();
-
     res.status(200).end(`Led ${ req.body.index } is ${ req.body.state }.`);
 });
 
